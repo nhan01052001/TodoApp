@@ -17,6 +17,7 @@ export type MainStackParams = {
 export type RootStackParams = {
     MainStackNavigator: undefined;
     BottomTabNavigator: any | undefined;
+    Home: undefined;
 };
 
 export type AllStackParams = {

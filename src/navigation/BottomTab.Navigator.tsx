@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -23,13 +23,21 @@ export const BottomTabNavigator: React.FC = () => {
                     fontSize: 13,
                     fontWeight: "700",
                 },
+                style: {
+                    borderTopWidth: 1,
+                    borderTopColor: 'red'
+                },
                 tabBarIcon: ({ color, size }) => {
-                    if (route.name === 'Home') {                        
-                        return <IconAntDesign name={'home'} size={16} color={'#000'} />
+                    if (route.name === 'Home') {
+                        return <View>
+                            <IconAntDesign name={'home'} size={22} color={'#000'} />
+                        </View>
                     }
 
                     if (route.name === 'Setting') {
-                        return <IconAntDesign name={'setting'} size={16} color={'#000'} />
+                        return <View>
+                            <IconAntDesign name={'setting'} size={22} color={'#000'} />
+                        </View>
                     }
 
                     return null;
@@ -40,7 +48,9 @@ export const BottomTabNavigator: React.FC = () => {
             <BottomTabs.Screen
                 name="Home"
                 component={Home}
-                options={{ headerShown: false, title: 'Trang chủ' }}
+                options={{
+                    headerShown: false, title: 'Trang chủ',
+                }}
             />
 
             <BottomTabs.Screen
