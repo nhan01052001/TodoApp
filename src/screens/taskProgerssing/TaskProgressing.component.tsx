@@ -1,10 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, Dimensions } from "react-native";
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconSimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { View, Text, Dimensions } from "react-native";
 import * as Progress from 'react-native-progress';
-
-import { BagIcon } from "../../assets/icon/Icon";
 
 const { width } = Dimensions.get('screen');
 

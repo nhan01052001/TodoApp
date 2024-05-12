@@ -1,14 +1,19 @@
-import React from "react";
-import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, Dimensions, FlatList, ScrollView } from "react-native";
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, SafeAreaView, Image, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconSimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import * as Progress from 'react-native-progress';
 
-import { BagIcon, PersonalIcon, DoExerciseCheckIcon } from "../assets/icon/Icon";
+import { BagIcon, PersonalIcon } from "../assets/icon/Icon";
 import TaskProgerssing from "./taskProgerssing/TaskProgressing.component";
+import GroupTask from "./taskProgerssing/GroupTask.component";
+import { AllStackParams } from '../navigation/Stack.Navigator';
 
 const { width } = Dimensions.get('screen')
 
@@ -147,23 +152,27 @@ export const DataTaskGroup = [
 ]
 
 const Home: React.FC = () => {
+    const navigation = useNavigation<StackNavigationProp<AllStackParams>>();
+    const [progress, setProgress] = useState<number>(0);
+
+    useEffect(() => {
+        setProgress(0.75);
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.wrapAll}>
                 <View style={styles.wrapHeader}>
                     <View style={styles.headerLeft}>
-                        {/* <Image
-                            source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/upload-image-f8fdc.appspot.com/o/Avatar%2F6B7DE9C2-F42D-4E3F-BF26-8E34110A69C5.jpg?alt=media&token=d72e992c-917d-430b-9b15-89d791d5d2fb' }}
+                        <Image
+                            source={require('../assets/image/avatar.jpeg')}
                             style={{
                                 width: 50,
                                 height: 50,
                                 borderRadius: 50,
-                                borderColor: 'red',
-                                borderWidth: 1,
                             }}
-                        /> */}
-                        <View style={styles.cricleRed} />
+                        />
+                        {/* <View style={styles.cricleRed} /> */}
 
                         <View style={{
                             marginLeft: 12,
@@ -202,7 +211,11 @@ const Home: React.FC = () => {
                                 style={styles.txtNoteTaskToday}>Bạn có công việc chưa hoàn thành.</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.btnViewTask}>
+                        <TouchableOpacity style={styles.btnViewTask}
+                            onPress={() => {
+                                navigation.navigate("ListTask");
+                            }}
+                        >
                             <Text
                                 style={styles.txtBtnViewTask}
                             >Xem công việc</Text>
@@ -216,7 +229,7 @@ const Home: React.FC = () => {
                         <Progress.Circle
                             color="#fff"
                             borderWidth={0}
-                            progress={0.5}
+                            progress={progress}
                             size={80}
                             showsText={true}
                             thickness={6}
@@ -283,97 +296,33 @@ const Home: React.FC = () => {
                         {
                             DataTaskGroup.map((item, index) => {
                                 return (
-                                    <TouchableOpacity
-                                        key={index}
-                                        style={{
-                                            padding: 16,
-                                            borderRadius: 8,
-                                            backgroundColor: 'white',
-                                            borderWidth: 0.1,
-                                            borderColor: '#b6b6b6',
-                                            marginBottom: 16,
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between',
-                                        }}
-                                    >
-                                        <View
-                                            style={{
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <View
-                                                style={{
-                                                    backgroundColor: `${item?.backgroundColorIcon}`,
-                                                    width: 40,
-                                                    height: 40,
-                                                    borderRadius: 10,
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                }}
-                                            >
-                                                {item?.icon}
-                                            </View>
-
-                                            <View
-                                                style={{
-                                                    marginLeft: 12,
-                                                }}
-                                            >
-                                                <Text
-                                                    numberOfLines={1}
-                                                    style={{
-                                                        fontSize: 18,
-                                                        fontWeight: '500',
-                                                        color: '#24252c',
-                                                    }}
-                                                >
-                                                    {item?.name}
-                                                </Text>
-                                                <Text
-                                                    style={{
-                                                        fontSize: 14,
-                                                        fontWeight: '500',
-                                                        color: '#6e6a7c',
-                                                    }}
-                                                >
-                                                    23 công việc
-                                                </Text>
-                                            </View>
-                                        </View>
-
-                                        <View>
-                                            <View style={{
-                                                position: 'absolute',
-                                                width: 50,
-                                                height: 50,
-                                                borderRadius: 50,
-                                                borderWidth: 6,
-                                                borderColor: `${item?.backgroundColorIcon}`
-                                            }} />
-                                            <Progress.Circle
-                                                color={`${item?.colorProgress}`}
-                                                borderWidth={0}
-                                                progress={(item?.totalNumbeTask !== undefined && item?.totalNumbeTask !== 0) ? item?.numberTaskCompleted / item?.totalNumbeTask : 1}
-                                                size={50}
-                                                showsText={true}
-                                                thickness={6}
-                                                direction="clockwise"
-                                                textStyle={{
-                                                    fontSize: 14,
-                                                    fontWeight: '500',
-                                                    color: '#000'
-                                                }}
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
+                                    <GroupTask key={index} item={item} />
                                 )
                             })
                         }
                     </ScrollView>
                 </View>
             </ScrollView>
+            <TouchableOpacity style={{
+                position: 'absolute',
+                bottom: 20,
+                right: 20,
+                width: 54,
+                height: 54,
+                borderRadius: 54,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#8043CC'
+            }}
+                onPress={() => {
+                    navigation.navigate("AddTodo");
+                }}
+            >
+                <IconIonicons name={'create-outline'} size={30} color={'#fff'} style={{
+                    marginLeft: 4,
+                    marginBottom: 4,
+                }} />
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
