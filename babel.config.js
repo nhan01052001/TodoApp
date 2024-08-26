@@ -1,3 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
-};
+  plugins: [
+    [
+      'react-native-reanimated/plugin',
+      // {
+      //   processNestedWorklets: true
+      // }
+      { globals: ['__poseDetection'] }
+    ],
+    ['react-native-worklets-core/plugin']
+  ],
+}

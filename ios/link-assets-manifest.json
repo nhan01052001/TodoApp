@@ -1,4 +1,25 @@
 {
   "migIndex": 1,
-  "data": []
+  "data": [
+    {
+      "path": "src/assets/icon/Icon.tsx",
+      "sha1": "9287bd7ab2b4770027382d7a53f64347e8f92b63"
+    },
+    {
+      "path": "src/assets/image/avatar.jpeg",
+      "sha1": "cd58f9b8cdabf6c45a8a669a0dd9bd5d9130bea8"
+    },
+    {
+      "path": "src/assets/image/imagebackgroundadd.jpg",
+      "sha1": "76d09cac09ece0491b0fd7a89feb67c64d33beef"
+    },
+    {
+      "path": "src/assets/image/imagebackgroundadd.png",
+      "sha1": "8a7373601fda56332e00d891a23efb5f7df63fb1"
+    },
+    {
+      "path": "src/assets/image/logo.png",
+      "sha1": "f84eb5fc7bd6cfc839f88014560d3f95cec7c529"
+    }
+  ]
 }
